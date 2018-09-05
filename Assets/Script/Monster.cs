@@ -19,13 +19,75 @@ public class Monster : MonoBehaviour {
     [SerializeField]
     private State activeState;          // 今の状態
 
+    [SerializeField]
+    private float waitChangeTime;       // 待機の切り替え時間
+
+    [SerializeField]
+    private float chaseRange;           // 追跡範囲
+
+    [SerializeField]
+    private GameObject targetObject;    // 追跡オブジェクト
+
     private IStateBase state;           // 状態インスタンス
+
+    private float timer;                // タイマー
+
+    public float ChaseRange
+    {
+        get
+        {
+            return chaseRange;
+        }
+    }
+
+    public float Timer
+    {
+        get
+        {
+            return this.timer;
+        }
+
+        set
+        {
+            this.timer = value;
+        }
+    }
+
 
     // 状態切り替え
     public void ChangeState(IStateBase next_state)
     {
         this.state = next_state;
         this.state.Init(this);
+    }
+
+    // 待機終了判定
+    public bool IsWaitEnd()
+    {
+        if (this.timer >= this.waitChangeTime)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // 範囲判定
+    public bool IsWithinRange(float range)
+    {
+        if (this.targetObject == null)
+        {
+            return false;
+        }
+
+        float distance = Vector3.Distance(this.targetObject.transform.position, this.transform.position);
+
+        if (distance < range)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     // Use this for initialization
