@@ -96,7 +96,7 @@ public class Monster : MonoBehaviour {
         switch (this.activeState)
         {
             case State.WAIT:
-
+                ChangeState(WaitState.Instance);
                 break;
             case State.WALK:
 
