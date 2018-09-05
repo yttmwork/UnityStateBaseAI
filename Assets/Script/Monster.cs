@@ -23,6 +23,12 @@ public class Monster : MonoBehaviour {
     private float waitChangeTime;       // 待機の切り替え時間
 
     [SerializeField]
+    private float walkSpeed;            // 歩き速度
+
+    [SerializeField]
+    private float walkChangeTime;       // 歩き切り替え時間
+
+    [SerializeField]
     private float chaseRange;           // 追跡範囲
 
     [SerializeField]
@@ -31,6 +37,16 @@ public class Monster : MonoBehaviour {
     private IStateBase state;           // 状態インスタンス
 
     private float timer;                // タイマー
+
+    private Vector3 moveDirection;      // 方向
+
+    public float WalkSpeed
+    {
+        get
+        {
+            return walkSpeed;
+        }
+    }
 
     public float ChaseRange
     {
@@ -53,6 +69,18 @@ public class Monster : MonoBehaviour {
         }
     }
 
+    public Vector3 MoveDirection
+    {
+        get
+        {
+            return moveDirection;
+        }
+
+        set
+        {
+            moveDirection = value;
+        }
+    }
 
     // 状態切り替え
     public void ChangeState(IStateBase next_state)
@@ -90,6 +118,23 @@ public class Monster : MonoBehaviour {
         return false;
     }
 
+    // 歩き終了判定
+    public bool IsWalkEnd()
+    {
+        if (this.timer >= this.walkChangeTime)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // 移動
+    public void Move(float speed)
+    {
+        this.transform.Translate(new Vector3(0.0f, 0.0f, speed * Time.deltaTime));
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -99,7 +144,7 @@ public class Monster : MonoBehaviour {
                 ChangeState(WaitState.Instance);
                 break;
             case State.WALK:
-
+                ChangeState(WalkState.Instance);
                 break;
             case State.CHASE:
 
