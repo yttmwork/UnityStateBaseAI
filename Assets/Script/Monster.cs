@@ -226,10 +226,10 @@ public class Monster : MonoBehaviour {
                 ChangeState(AttackWaitState.Instance);
                 break;
             case State.DAMAGE:
-
+                ChangeState(DamageState.Instance);
                 break;
             case State.DIE:
-
+                ChangeState(DieState.Instance);
                 break;
         }
     }
