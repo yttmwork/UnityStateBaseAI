@@ -199,6 +199,12 @@ public class Monster : MonoBehaviour {
         this.transform.eulerAngles = new Vector3(0.0f, this.transform.eulerAngles.y, 0.0f);
     }
 
+    // 死亡処理
+    public void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
     // Use this for initialization
     void Start ()
     {
