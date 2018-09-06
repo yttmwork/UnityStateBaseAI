@@ -28,6 +28,7 @@ public class DamageState : IStateBase
         if (monster.Timer > 2.0f)
         {
             Debug.Log("待機に切り替え");
+            monster.ChangeState(WaitState.Instance);
         }
     }
 }

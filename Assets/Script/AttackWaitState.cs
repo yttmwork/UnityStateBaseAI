@@ -24,15 +24,17 @@ public class AttackWaitState : IStateBase
 
         if (monster.IsAttackWaitEnd() == true)
         {
-            // 攻撃範囲内なら攻撃
-            if (monster.IsWithinRange(monster.AttackRange) == true)
+            // 追跡範囲内なら追跡
+            if (monster.IsWithinRange(monster.ChaseRange) == true)
             {
-                Debug.Log("攻撃に切り替え");
+                Debug.Log("追跡に切り替え");
+                monster.ChangeState(ChaseState.Instance);
             }
             // 攻撃範囲外は待機
             else
             {
                 Debug.Log("待機に切り替え");
+                monster.ChangeState(WaitState.Instance);
             }
         }
     }

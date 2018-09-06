@@ -38,10 +38,10 @@ public class Monster : MonoBehaviour {
     private float attackWaitChangeTime; // 攻撃待機切り替え時間
 
     [SerializeField]
-    private float attackRange;          // 攻撃範囲
+    private GameObject targetObject;    // 追跡オブジェクト
 
     [SerializeField]
-    private GameObject targetObject;    // 追跡オブジェクト
+    private int hp;                     // 体力
 
     private IStateBase state;           // 状態インスタンス
 
@@ -72,14 +72,6 @@ public class Monster : MonoBehaviour {
         get
         {
             return chaseRange;
-        }
-    }
-
-    public float AttackRange
-    {
-        get
-        {
-            return attackRange;
         }
     }
 
@@ -239,4 +231,29 @@ public class Monster : MonoBehaviour {
     {
         this.state.Update(this);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            isAttackStart = true;
+        }
+        else if (other.tag == "PlayerAttack")
+        {
+            // ダメージ状態じゃなかったら
+            if (state is DamageState == false)
+            {
+                this.hp--;
+                if (this.hp > 0)
+                {
+                    ChangeState(DamageState.Instance);
+                }
+                else
+                {
+                    ChangeState(DieState.Instance);
+                }
+            }
+        }
+    }
+
 }

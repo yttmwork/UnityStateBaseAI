@@ -26,11 +26,13 @@ public class WaitState : IStateBase
         if (monster.IsWaitEnd())
         {
             Debug.Log("移動に切り替え");
+            monster.ChangeState(WalkState.Instance);
         }
         // 追跡範囲内なら追跡に切り替え
         else if (monster.IsWithinRange(monster.ChaseRange) == true)
         {
             Debug.Log("追跡に切り替え");
+            monster.ChangeState(ChaseState.Instance);
         }
     }
 }

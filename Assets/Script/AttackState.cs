@@ -29,6 +29,7 @@ public class AttackState : IStateBase
         if (monster.Timer > 2.0f)
         {
             Debug.Log("攻撃待機に切り替え");
+            monster.ChangeState(AttackWaitState.Instance);
         }
     }
 }

@@ -30,11 +30,13 @@ public class ChaseState : IStateBase
         if (monster.IsAttackStart == true)
         {
             Debug.Log("攻撃に切り替え");
+            monster.ChangeState(AttackState.Instance);
         }
         // 追跡範囲外なら待機に切り替え
         else if (monster.IsWithinRange(monster.ChaseRange) == false)
         {
             Debug.Log("待機に切り替え");
+            monster.ChangeState(WaitState.Instance);
         }
     }
 }
