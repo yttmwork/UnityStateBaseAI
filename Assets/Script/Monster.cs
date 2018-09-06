@@ -29,7 +29,13 @@ public class Monster : MonoBehaviour {
     private float walkChangeTime;       // 歩き切り替え時間
 
     [SerializeField]
+    private float chaseSpeed;            // 追跡速度
+
+    [SerializeField]
     private float chaseRange;           // 追跡範囲
+
+    [SerializeField]
+    private float attackRange;          // 攻撃範囲
 
     [SerializeField]
     private GameObject targetObject;    // 追跡オブジェクト
@@ -40,6 +46,8 @@ public class Monster : MonoBehaviour {
 
     private Vector3 moveDirection;      // 方向
 
+    private bool isAttackStart;         // 攻撃開始トリガ
+
     public float WalkSpeed
     {
         get
@@ -48,11 +56,27 @@ public class Monster : MonoBehaviour {
         }
     }
 
+    public float ChaseSpeed
+    {
+        get
+        {
+            return chaseSpeed;
+        }
+    }
+
     public float ChaseRange
     {
         get
         {
             return chaseRange;
+        }
+    }
+
+    public float AttackRange
+    {
+        get
+        {
+            return attackRange;
         }
     }
 
@@ -81,6 +105,20 @@ public class Monster : MonoBehaviour {
             moveDirection = value;
         }
     }
+
+    public bool IsAttackStart
+    {
+        get
+        {
+            return isAttackStart;
+        }
+
+        set
+        {
+            isAttackStart = value;
+        }
+    }
+
 
     // 状態切り替え
     public void ChangeState(IStateBase next_state)
@@ -135,6 +173,18 @@ public class Monster : MonoBehaviour {
         this.transform.Translate(new Vector3(0.0f, 0.0f, speed * Time.deltaTime));
     }
 
+    // ターゲットの方に向く
+    public void TurnToObject()
+    {
+        if (this.targetObject == null)
+        {
+            return;
+        }
+
+        this.transform.LookAt(this.targetObject.transform);
+        this.transform.eulerAngles = new Vector3(0.0f, this.transform.eulerAngles.y, 0.0f);
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -147,7 +197,7 @@ public class Monster : MonoBehaviour {
                 ChangeState(WalkState.Instance);
                 break;
             case State.CHASE:
-
+                ChangeState(ChaseState.Instance);
                 break;
             case State.ATTACK:
 
