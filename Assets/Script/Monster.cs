@@ -29,10 +29,13 @@ public class Monster : MonoBehaviour {
     private float walkChangeTime;       // 歩き切り替え時間
 
     [SerializeField]
-    private float chaseSpeed;            // 追跡速度
+    private float chaseSpeed;           // 追跡速度
 
     [SerializeField]
     private float chaseRange;           // 追跡範囲
+
+    [SerializeField]
+    private float attackWaitChangeTime; // 攻撃待機切り替え時間
 
     [SerializeField]
     private float attackRange;          // 攻撃範囲
@@ -167,6 +170,17 @@ public class Monster : MonoBehaviour {
         return false;
     }
 
+    // 攻撃待機終了判定
+    public bool IsAttackWaitEnd()
+    {
+        if (this.timer >= this.attackWaitChangeTime)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     // 移動
     public void Move(float speed)
     {
@@ -200,10 +214,10 @@ public class Monster : MonoBehaviour {
                 ChangeState(ChaseState.Instance);
                 break;
             case State.ATTACK:
-
+                ChangeState(AttackState.Instance);
                 break;
             case State.ATTACK_WAIT:
-
+                ChangeState(AttackWaitState.Instance);
                 break;
             case State.DAMAGE:
 
