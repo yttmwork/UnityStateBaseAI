@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
         // Zで発射
 		if (Input.GetKeyDown(KeyCode.Z))
         {
-            GameObject obj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(this.bulletPrefab, transform.position, Quaternion.identity);
             // プレイヤーの向きに回転
             obj.transform.Rotate(transform.eulerAngles);
         }
