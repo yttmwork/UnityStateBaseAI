@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour {
     
-    // 状態用定数
-    public enum State
-    {
-        WAIT,           // 待機
-        WALK,           // 移動
-        CHASE,          // 追跡
-        ATTACK,         // 攻撃
-        ATTACK_WAIT,    // 攻撃待機
-        DAMAGE,         // ダメージ
-        DIE,            // 死亡
-    }
-
     [SerializeField]
     private State activeState;          // 今の状態
 
@@ -51,11 +39,23 @@ public class Monster : MonoBehaviour {
 
     private bool isAttackStart;         // 攻撃開始トリガ
 
+    // 状態用定数
+    public enum State
+    {
+        WAIT,           // 待機
+        WALK,           // 移動
+        CHASE,          // 追跡
+        ATTACK,         // 攻撃
+        ATTACK_WAIT,    // 攻撃待機
+        DAMAGE,         // ダメージ
+        DIE,            // 死亡
+    }
+
     public float WalkSpeed
     {
         get
         {
-            return walkSpeed;
+            return this.walkSpeed;
         }
     }
 
@@ -63,7 +63,7 @@ public class Monster : MonoBehaviour {
     {
         get
         {
-            return chaseSpeed;
+            return this.chaseSpeed;
         }
     }
 
@@ -92,12 +92,12 @@ public class Monster : MonoBehaviour {
     {
         get
         {
-            return moveDirection;
+            return this.moveDirection;
         }
 
         set
         {
-            moveDirection = value;
+            this.moveDirection = value;
         }
     }
 
@@ -105,12 +105,12 @@ public class Monster : MonoBehaviour {
     {
         get
         {
-            return isAttackStart;
+            return this.isAttackStart;
         }
 
         set
         {
-            isAttackStart = value;
+            this.isAttackStart = value;
         }
     }
 
@@ -203,25 +203,25 @@ public class Monster : MonoBehaviour {
         switch (this.activeState)
         {
             case State.WAIT:
-                ChangeState(WaitState.Instance);
+                this.ChangeState(WaitState.Instance);
                 break;
             case State.WALK:
-                ChangeState(WalkState.Instance);
+                this.ChangeState(WalkState.Instance);
                 break;
             case State.CHASE:
-                ChangeState(ChaseState.Instance);
+                this.ChangeState(ChaseState.Instance);
                 break;
             case State.ATTACK:
-                ChangeState(AttackState.Instance);
+                this.ChangeState(AttackState.Instance);
                 break;
             case State.ATTACK_WAIT:
-                ChangeState(AttackWaitState.Instance);
+                this.ChangeState(AttackWaitState.Instance);
                 break;
             case State.DAMAGE:
-                ChangeState(DamageState.Instance);
+                this.ChangeState(DamageState.Instance);
                 break;
             case State.DIE:
-                ChangeState(DieState.Instance);
+                this.ChangeState(DieState.Instance);
                 break;
         }
     }
@@ -236,21 +236,21 @@ public class Monster : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            isAttackStart = true;
+            this.isAttackStart = true;
         }
         else if (other.tag == "PlayerAttack")
         {
-            // ダメージ状態じゃなかったら
-            if (state is DamageState == false)
+            // ダメージ状態じゃなかったらダメージ
+            if (this.state is DamageState == false)
             {
                 this.hp--;
                 if (this.hp > 0)
                 {
-                    ChangeState(DamageState.Instance);
+                    this.ChangeState(DamageState.Instance);
                 }
                 else
                 {
-                    ChangeState(DieState.Instance);
+                    this.ChangeState(DieState.Instance);
                 }
             }
         }
