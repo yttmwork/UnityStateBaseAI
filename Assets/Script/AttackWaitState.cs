@@ -13,10 +13,6 @@ public class AttackWaitState : IStateBase
         }
     }
 
-    private AttackWaitState()
-    {
-    }
-
     public void Init(Monster monster)
     {
         monster.Timer = 0.0f;

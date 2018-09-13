@@ -13,10 +13,6 @@ public class ChaseState : IStateBase
         }
     }
 
-    private ChaseState()
-    {
-    }
-
     public void Init(Monster monster)
     {
         monster.IsAttackStart = false;
