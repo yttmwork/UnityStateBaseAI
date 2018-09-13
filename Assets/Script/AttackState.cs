@@ -32,4 +32,9 @@ public class AttackState : IStateBase
             monster.ChangeState(AttackWaitState.Instance);
         }
     }
+
+    private AttackState()
+    {
+    }
+
 }

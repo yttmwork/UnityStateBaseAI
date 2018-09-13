@@ -35,4 +35,9 @@ public class WaitState : IStateBase
             monster.ChangeState(ChaseState.Instance);
         }
     }
+
+    private WaitState()
+    {
+    }
+
 }
