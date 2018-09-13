@@ -41,4 +41,9 @@ public class WalkState : IStateBase
             monster.ChangeState(ChaseState.Instance);
         }
     }
+
+    private WalkState()
+    {
+    }
+
 }

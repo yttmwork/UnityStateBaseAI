@@ -13,6 +13,10 @@ public class DamageState : IStateBase
         }
     }
 
+    private DamageState()
+    {
+    }
+
     public void Init(Monster monster)
     {
         // debug アニメーション実装までは時間で管理
@@ -31,4 +35,9 @@ public class DamageState : IStateBase
             monster.ChangeState(WaitState.Instance);
         }
     }
+
+    private DamageState()
+    {
+    }
+
 }

@@ -31,4 +31,9 @@ public class DieState : IStateBase
             monster.Die();
         }
     }
+
+    private DieState()
+    {
+    }
+
 }

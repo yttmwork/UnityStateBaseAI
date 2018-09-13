@@ -5,13 +5,16 @@ using UnityEngine;
 public class ChaseState : IStateBase
 {
     private static ChaseState instance = new ChaseState();
-
     public static ChaseState Instance
     {
         get
         {
             return instance;
         }
+    }
+
+    private ChaseState()
+    {
     }
 
     public void Init(Monster monster)
@@ -39,4 +42,9 @@ public class ChaseState : IStateBase
             monster.ChangeState(WaitState.Instance);
         }
     }
+
+    private ChaseState()
+    {
+    }
+
 }
