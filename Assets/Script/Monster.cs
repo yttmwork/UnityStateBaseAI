@@ -23,6 +23,9 @@ public class Monster : MonoBehaviour {
     private float chaseRange;           // 追跡範囲
 
     [SerializeField]
+    private float attackRange;          // 攻撃範囲
+
+    [SerializeField]
     private float attackWaitChangeTime; // 攻撃待機切り替え時間
 
     [SerializeField]
@@ -36,8 +39,6 @@ public class Monster : MonoBehaviour {
     private float timer;                // タイマー
 
     private Vector3 moveDirection;      // 方向
-
-    private bool isAttackStart;         // 攻撃開始トリガ
 
     private Animator animator;          // アニメータ
 
@@ -77,6 +78,14 @@ public class Monster : MonoBehaviour {
         }
     }
 
+    public float AttackRange
+    {
+        get
+        {
+            return attackRange;
+        }
+    }
+
     public float Timer
     {
         get
@@ -102,20 +111,6 @@ public class Monster : MonoBehaviour {
             this.moveDirection = value;
         }
     }
-
-    public bool IsAttackStart
-    {
-        get
-        {
-            return this.isAttackStart;
-        }
-
-        set
-        {
-            this.isAttackStart = value;
-        }
-    }
-
 
     // 状態切り替え
     public void ChangeState(IStateBase next_state)
@@ -241,13 +236,9 @@ public class Monster : MonoBehaviour {
         this.state.Update(this);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.tag == "Player")
-        {
-            this.isAttackStart = true;
-        }
-        else if (other.tag == "PlayerAttack")
+        if (other.gameObject.tag == "PlayerAttack")
         {
             // ダメージ状態じゃなかったらダメージ
             if (this.state is DamageState == false)
