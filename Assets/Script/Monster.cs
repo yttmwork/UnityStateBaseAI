@@ -204,13 +204,26 @@ public class Monster : MonoBehaviour {
     // 死亡処理
     public void Die()
     {
+        GameObject gm = Instantiate(Resources.Load("Prefab/Explosion")) as GameObject;
+        gm.transform.position = this.transform.position;
         Destroy(this.gameObject);
     }
 
     // アニメーション切り替え
     public void ChangeAnimation(int state)
     {
-        GetComponent<Animator>().SetInteger("State", state);
+        if (state == (int)State.DIE)
+        {
+            GetComponent<Animator>().SetTrigger("Die");
+        }
+        else if (state == (int)State.DAMAGE)
+        {
+            GetComponent<Animator>().SetTrigger("Damage");
+        }
+        else
+        {
+            GetComponent<Animator>().SetInteger("State", state);
+        }
     }
 
     // Use this for initialization
@@ -250,9 +263,9 @@ public class Monster : MonoBehaviour {
         this.state.Update(this);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerAttack")
+        if (other.tag == "PlayerAttack")
         {
             // ダメージ状態じゃなかったらダメージ
             if (this.state is DamageState == false)
