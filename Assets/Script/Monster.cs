@@ -39,6 +39,8 @@ public class Monster : MonoBehaviour {
 
     private bool isAttackStart;         // 攻撃開始トリガ
 
+    private Animator animator;          // アニメータ
+
     // 状態用定数
     public enum State
     {
@@ -197,6 +199,11 @@ public class Monster : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
+    public void ChangeAnimation(int state)
+    {
+        GetComponent<Animator>().SetInteger("State", state);
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -224,6 +231,8 @@ public class Monster : MonoBehaviour {
                 this.ChangeState(DieState.Instance);
                 break;
         }
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

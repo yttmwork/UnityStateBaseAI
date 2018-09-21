@@ -16,6 +16,7 @@ public class AttackWaitState : IStateBase
     public void Init(Monster monster)
     {
         monster.Timer = 0.0f;
+        monster.ChangeAnimation((int)Monster.State.ATTACK_WAIT);
     }
 
     public void Update(Monster monster)

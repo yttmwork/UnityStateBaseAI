@@ -16,6 +16,7 @@ public class ChaseState : IStateBase
     public void Init(Monster monster)
     {
         monster.IsAttackStart = false;
+        monster.ChangeAnimation((int)Monster.State.CHASE);
     }
 
     public void Update(Monster monster)

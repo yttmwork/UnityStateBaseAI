@@ -17,6 +17,7 @@ public class DamageState : IStateBase
     {
         // debug アニメーション実装までは時間で管理
         monster.Timer = 0.0f;
+        monster.ChangeAnimation((int)Monster.State.DAMAGE);
     }
 
     public void Update(Monster monster)
