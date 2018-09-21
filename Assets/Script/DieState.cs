@@ -15,18 +15,12 @@ public class DieState : IStateBase
 
     public void Init(Monster monster)
     {
-        // debug アニメーション実装までは時間で管理
-        monster.Timer = 0.0f;
         monster.ChangeAnimation((int)Monster.State.DIE);
     }
 
     public void Update(Monster monster)
     {
-        // debug アニメーション実装までは時間で管理
-        monster.Timer += Time.deltaTime;
-
-        // debug アニメーション実装までは時間で管理
-        if (monster.Timer > 2.0f)
+        if (monster.IsAnimationEnd() == true)
         {
             // 死亡
             monster.Die();

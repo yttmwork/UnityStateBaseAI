@@ -112,6 +112,19 @@ public class Monster : MonoBehaviour {
         }
     }
 
+    // アニメーション終了判定
+    public bool IsAnimationEnd()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                             
+        if (stateInfo.normalizedTime < 1.0f)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     // 状態切り替え
     public void ChangeState(IStateBase next_state)
     {
@@ -194,6 +207,7 @@ public class Monster : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
+    // アニメーション切り替え
     public void ChangeAnimation(int state)
     {
         GetComponent<Animator>().SetInteger("State", state);
