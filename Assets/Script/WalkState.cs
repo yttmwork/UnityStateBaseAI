@@ -20,6 +20,7 @@ public class WalkState : IStateBase
         float degree = Random.Range(0.0f, 360.0f);
         monster.MoveDirection = new Vector3(0.0f, degree, 0.0f);
         monster.transform.Rotate(monster.MoveDirection);
+        monster.ChangeAnimation((int)Monster.State.WALK);
     }
 
     public void Update(Monster monster)

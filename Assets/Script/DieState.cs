@@ -17,6 +17,7 @@ public class DieState : IStateBase
     {
         // debug アニメーション実装までは時間で管理
         monster.Timer = 0.0f;
+        monster.ChangeAnimation((int)Monster.State.DIE);
     }
 
     public void Update(Monster monster)
