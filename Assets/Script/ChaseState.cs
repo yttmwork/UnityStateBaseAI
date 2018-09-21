@@ -15,7 +15,6 @@ public class ChaseState : IStateBase
 
     public void Init(Monster monster)
     {
-        monster.IsAttackStart = false;
         monster.ChangeAnimation((int)Monster.State.CHASE);
     }
 
@@ -27,7 +26,7 @@ public class ChaseState : IStateBase
         monster.Move(monster.ChaseSpeed);
 
         // 攻撃範囲なら攻撃に切り替え
-        if (monster.IsAttackStart == true)
+        if (monster.IsWithinRange(monster.AttackRange) == true)
         {
             Debug.Log("攻撃に切り替え");
             monster.ChangeState(AttackState.Instance);
